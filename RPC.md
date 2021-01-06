@@ -72,3 +72,144 @@ netty 是重点，通信主要靠netty，通信是基础；
 
 高阶是服务治理
 
+## netty 启动
+
+1. 阻塞 = 等待，非阻塞 = 不等待，已经准备好了
+2. 异步，不是当前线程做
+3. netty EventLoop 强调的是非阻塞，事件来自 selector，分发到一个线程处理
+
+---
+
+1. 创建配置
+2. 创建Channel
+3. 配置Channel，绑定EventLoop，绑定pipeLine
+4. bind端口，监听客户端连接
+5. 等待不能退出
+
+---
+
+eventLoop 事件循环
+
+1. 循环selector中的事件 
+
+   >  在run中selector.select
+
+2. 将创建的Channel注册到eventLoop上
+
+3. 处理IO事件和用户添加的事件
+
+4. NioEventLoop 就是多线的，注册Channel到eventLoops时，会选择一个EventLoop注册
+
+---
+
+分析 Netty 死锁异常 BlockingOperationException
+
+http://www.linkedkeeper.com/1027.html
+
+---
+
+Future 和 Promise 
+
+1. 表示一个未来的结果
+
+2. 可以在上注册感兴趣的事件
+
+3. 可以获取异步任务的状态
+
+> 底层就是线程通信，await notify，通过一个对象同步
+
+
+
+---
+
+看源码，抓住主线
+
+说的很形象，但是不能落实到代码
+
+reactor flux 的配置的过程，就是一个个参数嵌套 ？？ f(g(x))
+
+对象是存储指令的容器  thread
+
+生产者 和 消费者，之间增加 加工者，修饰的是生产者还是消费者
+
+链式编程和函数式 只关注动作
+
+链接受的解释自己，上下文统一
+
+---
+
+定义的接口和名词的意义是什么 ？ 目标，表达需求，模拟生活，怎么实现我不管，这样对我们有好处
+
+具体怎么实现，需要编程功底，使用现有的编程技术
+
+各种操作是怎么串联起来的
+
+reactor 的push和pull是怎么实现的？
+
+> push就是就是调用订阅者的onNext方法，push，但是pull呢，所以出现了subscription，中间的，代理publish和订阅者
+
+函数、对象、接口的混合
+
+# AtomicReferenceFieldUpdater 
+
+的使用方法
+
+**背压**是在生产端的
+
+方法调用 vs 元素下发
+
+-----
+
+
+
+1. 因为阻塞所以多线程
+2. 但是线程数有限，而且大部分时间都在空闲
+
+> 如果继续提升应用的性能，让线程跑起来，不空闲
+
+1. 异步非阻塞
+2. 响应式
+
+---
+
+1. 反应式和异步的关系
+2. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
