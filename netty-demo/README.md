@@ -642,8 +642,8 @@ bind() 才是真正进行**服务器端口绑定和启动的入口**
 # 资料
 
 - 综述文章 https://zhuanlan.zhihu.com/p/48591893
-
 - 张龙 netty 视频
+- https://shawn-xu.medium.com/its-all-about-buffers-zero-copy-mmap-and-java-nio-50f2a1bfc05c zero copy 非常清楚说明
 - geektime netty 视频
 - 占小狼 https://www.jianshu.com/nb/7269354 文章
 - 拉钩 netty 文章
