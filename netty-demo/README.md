@@ -612,9 +612,31 @@ bind() 才是真正进行**服务器端口绑定和启动的入口**
 
 . Pipeline 初始化的过程是什么样的？
 
+----
+
+# netty 启动
+
+NioSocketChannel 创建过程
+
+bind和sync方法的调试
+
+服务端接受处理器的注册和作用，
+
+netyy 服务端器懂得流程，拉钩，serverSocketChannel的创建，端口的绑定，selector的创建，channel的注册
+
+ChannelPipeLine的创建和初始化
+
+BossGroup 返回的SelectionKey 传递给WorkGroup,是SocketChannel
+
+Buffer分配
 
 
 
+![屏幕快照 2021-01-21 上午8.18.47](/Users/malone/Desktop/屏幕快照 2021-01-21 上午8.18.47.png)
+
+
+
+![屏幕快照 2021-01-21 上午8.08.35](/Users/malone/Desktop/屏幕快照 2021-01-21 上午8.08.35.png)
 
 # 编程学习资源
 
