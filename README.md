@@ -53,3 +53,14 @@ JS 引擎是C++语言实现的，但是提供了 JavaScript API
 多以如果一个库如果使用C/C++编写，那他就是支持多语言的
 
 Java golang swift dart JavaScript 
+
+---
+
+网络: 磁盘IO 网络IO select epoll rpc
+多线程: 锁，线程池，异步
+消息: MQ
+微服务框架: Spring cloud alibaba
+数据结构:
+mysql:
+es:
+sparker:
