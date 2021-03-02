@@ -1080,7 +1080,7 @@ public class SocketMultiplexingSingleThreadv2 {
 
 上面的话解释下面图中netty的IO架构或者线程模型，或者为什么采用单线程，单select的模型，减少系统调用
 
-![](https://gitee.com/zilongcc/images/raw/master/fc718050c06541209aee11715687b495~tplv-k3u1fbpfcp-watermark.image)
+![netty工作原理架构图](https://gitee.com/zilongcc/images/raw/master/4036B5EE5F8D.jpg)
 
 ---
 
@@ -1218,7 +1218,17 @@ Nio或者多路复用的思想
 
 ![](https://gitee.com/zilongcc/images/raw/master/bfd2036982ff45e18236815806a4fe12~tplv-k3u1fbpfcp-watermark.image)
 
-![](51269d4506d14e4283703af655a91334~tplv-k3u1fbpfcp-watermark.image)
+
+
+- 简单的客户端和服务端通信，但是要解码发送的信息,引出下节课的**编解码**，
+- 理解为什么会出现粘包，半包问题，以及怎么处理，
+- 重点理解initChannel的作用
+
+``` java 
+ bind.sync().channel().closeFuture().sync(); // TODO 这种写发没有理解
+```
+
+
 
 # 198 全手写基于Netty的RPC框架 协议编解码问题 粘包拆包与内核关系 地址
 
@@ -1238,6 +1248,8 @@ IO 双相的，异步的
 
 completeFuture.get 阻塞 
 需要在其他地方complete 继续执行
+
+
 
 # 203 全手写基于Netty的RPC框架 provider端简单dispatcher实现RPC调用全流程 地址
 
