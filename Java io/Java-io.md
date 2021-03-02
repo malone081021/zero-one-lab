@@ -1249,7 +1249,24 @@ IO 双相的，异步的
 completeFuture.get 阻塞 
 需要在其他地方complete 继续执行
 
+---
 
+- 测试在一个JVM，customer和provider
+- 业务可以在自己的线程池处理，也可以在其他线程池中处理
+
+
+
+> 1. RPC 中经常用到RPC netty环境的配置，服务端的监听配置，客户端链接处理，首先需要理解netty的 IO thread 模型
+> 2. netty的 IO thread 模型理解的关键是：基于事件的多路复用器，epoll + 多线程 + 队列
+> 3. 从创建ServerChannel，绑定，注册到一个selector，到接收到一个客户端链接，socketChannel到注册到另一个线程
+
+`ServerBootstrapAcceptor` 
+
+![image-20210302165417446](https://gitee.com/zilongcc/images/raw/master/image-20210302165417446.png)
+
+
+
+![image-20210302165625231](https://gitee.com/zilongcc/images/raw/master/image-20210302165625231.png)
 
 # 203 全手写基于Netty的RPC框架 provider端简单dispatcher实现RPC调用全流程 地址
 
