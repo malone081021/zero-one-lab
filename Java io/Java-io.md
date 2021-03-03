@@ -225,24 +225,24 @@ pageCache 初衷是优化IO性能，但是会丢失数据，先写内存，并�
 
 > 应用对文件的读写都是要经过os，os都是要经过pageCache
 
-> paCache是文件在内存中的缓存，有缓存就有可能丢数据，是对IO 的优化
+> pageCache是文件在内存中的缓存，有缓存就有可能丢数据，是对IO 的优化
 
 > pageCache有dirty特性和LRU
 
 # ByteBuffer 
 
-1. 文件是块设备，可以随机读写，就是可以跳转读写的位置，依靠fd的seek，偏移
-2.  只有文件才有Map方法 产生 MappedByteBuffer，是因为文件是块设备，可以随机读写
+1. 文件是块设备，可以随机读写，就是可以跳转读写的位置，依靠fd的seek，**偏移，有实验**
+2.  只有文件才有Map方法 产生 `MappedByteBuffer`，是因为文件是`块设备`，可以`随机读写`
 
 ![](https://gitee.com/zilongcc/images/raw/master/f1ec62c73f3e47d8a55a9bcbf2d7a64c~tplv-k3u1fbpfcp-watermark.image)
 
 1. MappedByteBuffer 分配在堆外，是JVM 堆外
-2. 文件是块设备，可以随机读写，但是还是和pageCache有关
-3. Direct IO，可以跳过 pageCache，但是只是将这个工作交给应用自己做；os的pageCache是全局的，交给应用可以缩小范围，跟精确
+2. 文件是块设备，可以随机读写，但是还是和`pageCache`有关
+3. `Direct IO`，可以跳过 `pageCache`，但是只是将这个工作交给应用自己做；os的pageCache是全局的，交给应用可以缩小范围，跟精确
 4. JVM 不支持direct IO，只能JNI
 
 ## 各种堆的总结
-0. 你就想成，jvm的堆再java的堆里，（JVM 堆数在整个Java堆的堆中）
+0. 你就想成，jvm的堆再java的堆里，（`JVM 堆`数在整个Java堆的堆中）
 1. 堆内：说的jvm的堆里的字节数组
 2. 堆外：多的是jvm堆外，也就是**java进程的堆**里的
 3. mapped映射：是mmap调用的一个`进程和内核共享的内存区域`，`减少scall` 且这个内存区域是pagecache/到文件的映射
