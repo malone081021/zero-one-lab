@@ -1,3 +1,5 @@
+# Linux 基础
+
 `VFS` `df` `inode`  `pagecache` `dirty`
 
 flush / 时机/ 针对一个文件/
@@ -87,6 +89,9 @@ bash    31293 root  255u   CHR  136,0       0t0        3 /dev/pts/0
 `lsof -op pid` // 看到pid打开的文件描述符的具体情况
 `cd $$ `
 `cd pid`pwd
+
+## 重定向
+
 **重定向 不是命令是一种机制**
 
 **IO 的输入和输出** 
@@ -95,40 +100,54 @@ bash    31293 root  255u   CHR  136,0       0t0        3 /dev/pts/0
 
 `ls ./ > ~/out.text`  将ls的标准输出重定向到out.text
 
-cat 0< xx.text 1> xx.text
+`cat 0< xx.text 1> xx.text`
 
-read a 0< cat.out // 将read 的标准输出重定向到 cat.out
-> fd+<> 不能有空格
+`read a 0< cat.out` // 将read 的标准输出重定向到 cat.out
+
+> `fd+<>` // 之间不能有空格
 > // 重定向操作符的基本用法
-> ![](https://gitee.com/zilongcc/images/raw/master/23efc3ed6853472796d1d1befb05e6f0~tplv-k3u1fbpfcp-watermark.image)ls ./ 
+>
+> 
+>
+> `ls ./ /fasfasd 1> 01.out 2>& 1`
+>
+> ![](https://gitee.com/zilongcc/images/raw/master/%E9%87%8D%E5%AE%9A%E5%90%91.png)
 
-管道
+## 管道 
 
 `head tail`
 
-`head -8 test.text | tail -1`
+`head -8 test.text | tail -1` // 通过组合获取第八行
 
-pstree
+`yum -y install psmisc`
 
-父子进程 // 变量隔离
+`pstree `
 
-只有export变量
+父子进程 // 变量隔离 只有export变量
 
-![](https://gitee.com/zilongcc/images/raw/master/5a0549b533e24d93885532f16936180e~tplv-k3u1fbpfcp-watermark.image)
+```
+[root@sec ~]# { a=9;echo "aaa";}|cat
+aaehco a
+```
 
-| 创建子进程执行管道两个的程序，通过管道链接第一个输出到第二个输入，所以当前线程时访问不到a=9
-
-![](https://gitee.com/zilongcc/images/raw/master/51413624110545a6ae4973b4d5480a5c~tplv-k3u1fbpfcp-watermark.image)
+创建子进程执行管道两个的程序，通过管道链接第一个输出到第二个输入，所以当前线程时访问不到a=9
 
 $$ 的优先级高于 | ,在创建子进程执行之前已经将$$ 替换成当前线程pid。但$BASHPID不一样
 
-管道有坑
+**管道有坑**,
 
-![](https://gitee.com/zilongcc/images/raw/master/a98fb1460ed145bda8b223ab4dd134db~tplv-k3u1fbpfcp-watermark.image)
+```
+[root@sec ~]# echo $$
+31293
+[root@sec ~]# { echo $$;}|{ echo $$;}
+31293
+[root@sec ~]# { echo $BASHPID;}|{ echo $BASHPID;}
+33534
+```
 
 验证父进程是否有两个子进程，ps -ef | grep pid
 cd /proc/pid/df 
-ls -op pid 
+lsof  -op pid 
 // 主要是为了查看pipe文件类型，管道是通过pipe连接的。
 
 管道和重定向的使用方法
@@ -137,17 +156,21 @@ ls -op pid
 
 ![](https://gitee.com/zilongcc/images/raw/master/ff168159919a4371839e21387f449078~tplv-k3u1fbpfcp-watermark.image)
 
-AKF 拆分原则
+>  AKF 拆分原则
 
-pcstat // 查看pagecache 的状态
+`pcsta`t // 查看pagecache 的状态,缓存的比例等等;可执行文件，在当前文件夹中
 
-内存管理// 4k page 和 pageCache
+内存管理 // 4k page 和 pageCache
 
-不同的程序共享 pageCache fd 独立
+不同的程序共享 pageCache, 通过fd和seek区分
 
-pageCache 中间层 
+`pageCache` 中间层 , 文件从硬盘到pageCache，写从用户空间到pageCache，而不是直接写盘
 
-systemctl -a
+`systemctl -a`
+
+`sysctl -a | grep dirty` // 查看和pageCache相关的配置或者刷盘相关配置
+
+`vim /etc/sysctl.conf  `// 修改配置
 
 ```
 [root@sec ~]# sysctl -a | grep dirty
@@ -176,20 +199,21 @@ vm.dirty_writeback_centisecs = 500
 [root@sec ~]# vim /etc/sysctl.conf
 ```
 
-![](https://gitee.com/zilongcc/images/raw/master/bbfcb4b5615242d1a4a6560d2cca62c7~tplv-k3u1fbpfcp-watermark.image)
-
 `ll -h && pcstat out.txt`
 
+> 通过上面的命令，编写入数据到out.txt，同时查看pageCache的变化
 
 **Buffer IO 为什么块**
 
-JVM 8k数组，满了，次掉用一次scall **strace** 直接能看到，系统调用的过程。一次scall，传递更多的数据，减少scall
+JVM 8k数组，满了，调用一次scall， **strace** 直接能看到，系统调用的过程。一次scall，传递更多的数据，减少scall，有一个通过减少scall，提高性能的例子
 
-`strace 内核调用的`
+`strace ` 可以跟踪系统调用
 
-`pageCache 和 Redis的数据丢失，不能交给内核同步到磁盘`
+`pageCache`和 `Redis`的数据丢失，不能交给内核同步到磁盘,需要自己关注
 
 pageCache 初衷是优化IO性能，但是会丢失数据，先写内存，并没有同步磁盘，所以有只要直接断电，丢失数据。
+
+> 可以通过虚拟机实验，在pageCache中，但是没有写磁盘，直接断电，再次打开写入的数据没有了
 
 # 内存管理
 
