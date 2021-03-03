@@ -7,43 +7,93 @@ flush / 时机/ 针对一个文件/
 ![](https://gitee.com/zilongcc/images/raw/master/b6766be9845f47e589a67f9ad9a6113b~tplv-k3u1fbpfcp-watermark.image)
 
 虚拟文件系统：ll
-df 
+`df -h`
 // 分区和虚拟文件系统的映射关系，单独将一个硬盘映射到一个目录，
-目录去向稳定
+
+目录取向稳定，所以将分区映射到文件，这样对上层屏蔽下层的变化；文件夹也是一种文件类型
+
 文件类型
+
 b:块设备
-c:字符设备，键盘，tty
-![](https://gitee.com/zilongcc/images/raw/master/ac983f46a2aa4426b63d0aae72831a10~tplv-k3u1fbpfcp-watermark.image)
-两个变量指向同一个物理位置，描述的路径唯一，但是inode号一样
-修改其中一个两一个也能看到，，删除一个文件，只是减少links值，没有删除文件
+c:字符设备，键盘，tty等等
 
-ln -s // 软连接 ，链接数量不增加，生成一个单独的文件，inode不一样，删除文件，链接报错
+`stat malone.txt` 查看文件信息
 
-生成快设别
-![](https://gitee.com/zilongcc/images/raw/master/1d54a6aa39f34a06b1226f95bfa1db68~tplv-k3u1fbpfcp-watermark.image)
+```sehll
+[root@sec ~]# stat malone.txt 
+  File: ‘malone.txt’
+  Size: 0         	Blocks: 0          IO Block: 4096   regular empty file
+Device: fd00h/64768d	Inode: 33817114    Links: 1
+Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
+Context: unconfined_u:object_r:admin_home_t:s0
+Access: 2021-03-03 08:37:11.090931984 +0800
+Modify: 2021-03-03 08:37:11.090931984 +0800
+Change: 2021-03-03 08:37:11.090931984 +0800
+ Birth: -
+```
 
-dd if of // 备份等等
+硬链接
 
-ldd // 可以分析当前程序依赖其他程序
+- 两个变量指向同一个物理位置，只是描述的路径唯一，但是inode号一样
+- 修改其中一个另一个也能看到，，删除一个文件，只是减少links值，没有删除文件
 
-chroot ./
-lsof - p $$ // 进程打开的文件
+ 软连接
 
-![](https://gitee.com/zilongcc/images/raw/master/16f9f965be5344dfa7ed9403ce7bfbc5~tplv-k3u1fbpfcp-watermark.image)
+`ln -s `
 
-/proc 文件映射了内核中的属性
-/proc/$$ // $$ 当前交互的进程Id
-/proc/$$/df // df 中有$$ 中的fd 
-lsof -op pid // 看到文件描述符的具体情况
-cd $$ 
-cd pid
-重定向 不是命令是一种机制
+软连接 ，链接数量不增加，生成一个单独的文件，inode不一样，删除文件，链接报错
 
-IO 的输入和输出 
-0 1 2 // fd
-< 为输入 > 输出
+生成快设别方法
 
-ls ./ > ~/out.text
+`dd  if=/dev/zero of=mydisk.img bs=1048576 count=100` 备份等等
+
+`ldd` // 可以分析当前程序依赖其他程序
+
+> `ll`
+>
+> `ll -h`  文件大小转化为人比较容易看懂的
+
+`chroot ./`  修改root
+`lsof - p $$` 查看进程打开的文件
+
+`exec 6< ~/malone.txt `
+
+```
+[root@sec ~]# exec 6< ~/malone.txt 
+[root@sec ~]# lsof -p $$
+COMMAND   PID USER   FD   TYPE DEVICE  SIZE/OFF     NODE NAME
+bash    31293 root  cwd    DIR  253,0       187 33574977 /root
+bash    31293 root  rtd    DIR  253,0       224       64 /
+bash    31293 root  txt    REG  253,0    964536 50333926 /usr/bin/bash
+bash    31293 root  mem    REG  253,0 106176928 50333903 /usr/lib/locale/locale-archive
+bash    31293 root  mem    REG  253,0     61560    82849 /usr/lib64/libnss_files-2.17.so
+bash    31293 root  mem    REG  253,0   2156344    80514 /usr/lib64/libc-2.17.so
+bash    31293 root  mem    REG  253,0     19248    80521 /usr/lib64/libdl-2.17.so
+bash    31293 root  mem    REG  253,0    174576    82494 /usr/lib64/libtinfo.so.5.9
+bash    31293 root  mem    REG  253,0    163312    65896 /usr/lib64/ld-2.17.so
+bash    31293 root  mem    REG  253,0     26970 33761667 /usr/lib64/gconv/gconv-modules.cache
+bash    31293 root    0u   CHR  136,0       0t0        3 /dev/pts/0
+bash    31293 root    1u   CHR  136,0       0t0        3 /dev/pts/0
+bash    31293 root    2u   CHR  136,0       0t0        3 /dev/pts/0
+bash    31293 root    6r   REG  253,0         0 33817114 /root/malone.txt
+bash    31293 root  255u   CHR  136,0       0t0        3 /dev/pts/0
+```
+
+`$$` 代表当前进程
+
+`/proc` 文件映射了内核中的属性
+`/proc/$$` // $$ 当前交互的进程Id
+`/proc/$$/df` // 当前进程中有$$ 中的fd 
+`lsof -op pid` // 看到pid打开的文件描述符的具体情况
+`cd $$ `
+`cd pid`pwd
+**重定向 不是命令是一种机制**
+
+**IO 的输入和输出** 
+0 1 2 // 每个程序都有三个fd，分别数标准输入、标准输出、错误输出
+`< `为输入` >` 输出
+
+`ls ./ > ~/out.text`  将ls的标准输出重定向到out.text
 
 cat 0< xx.text 1> xx.text
 
