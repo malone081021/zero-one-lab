@@ -1271,13 +1271,12 @@ completeFuture.get 阻塞
 # 203 全手写基于Netty的RPC框架 provider端简单dispatcher实现RPC调用全流程 地址
 
 - 连接复用，多个线程使用一个连接
-- 
 
 ## 端口绑定和handler之间的关系
 
 **netty 多个端口实际走一套handler;**
 
-**handler 和 sbs 对应**
+**handler 和 sbs 对应**,
 
 ![](https://gitee.com/zilongcc/images/raw/master/f0df60fc8c444d8da3e644e09d7f1cc5~tplv-k3u1fbpfcp-watermark.image)
 IO 
@@ -1370,6 +1369,14 @@ URL发起链接，每个一个链接；50个请求，50个链接
 服务端：jetty tomcat / 通过http 运送 货物 
 
 
+
+# 总结
+
+## RPC客户端链接管理
+
+## RPC 客户端、服务端拆包、协议
+
+## 服务端业务处理、线程、completeFuture
 
 # 参考
 - https://zhuanlan.zhihu.com/p/340093507 从根上理解高性能、高并发(二)：深入操作系统，理解I/O与零拷贝技术
