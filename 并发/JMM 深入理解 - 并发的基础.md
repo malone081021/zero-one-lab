@@ -184,7 +184,6 @@ https://zhuanlan.zhihu.com/p/208788426
 - https://xie.infoq.cn/article/680fd531df57856ddcb532914 **JMM 的前世今生**
 - https://xie.infoq.cn/article/8b877b5fbe755c382fcee8dddJava **并发编程之 JMM & volatile 详解**
 - https://xie.infoq.cn/article/d9479ba8900bd7645c035d006 关于 Synchronized 的一个点，网上 99% 的文章都错了
-- https://blog.csdn.net/21cnbao/article/details/114362308#comments_15283526 **李浩: 再谈 volatile 关键字** 
 
 ![图片](https://gitee.com/zilongcc/images/raw/master/640)
 
