@@ -1,4 +1,4 @@
-![image-20210327090002896](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210327090002896.png)
+![image-20210327090002896](C:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20210327090002896.png)
 
 ## 缓存和数据库的不同
 
@@ -772,4 +772,10 @@ spring data redis
 参考在实例代码中，需要重点关注
 
 redis中存储的都是二级制，所谓的二进制安全还是需要安静的看看
+
+
+
+![image-20210328174331549](image-20210328174331549.png)
+
+secondaries.cn
 
