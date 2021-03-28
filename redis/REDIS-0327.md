@@ -777,5 +777,18 @@ redis中存储的都是二级制，所谓的二进制安全还是需要安静的
 
 ![image-20210328174331549](image-20210328174331549.png)
 
-secondaries.cn
+# 参考
+
+- https://blog.csdn.net/truelove12358/article/details/105692909/  磁盘和内存的读写速度对比
+-  www.secondaries.cn 笔记
+- https://www.cnblogs.com/littlepage/category/1348327.html 更多笔记
+- [敖丙redis笔记](https://aobing.blog.csdn.net/article/details/103004235?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-13.control&dist_request_id=1328740.25197.16169002725043873&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-13.control)
+- https://blog.csdn.net/rebaic/article/details/76384028 predixy 介绍
+- http://redis.cn/documentation.html 中文官网
+- http://www.secondaries.cn/2019/09/03/Redis%E5%88%9D%E8%AF%86/#%E8%AF%BE%E5%89%8D%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86  笔记
+- 导入processon的图
+- https://yuzhouwan.com/posts/2129/ 博客
+- https://blog.csdn.net/gx17864373822/article/details/105412058 教程图
+- https://blog.csdn.net/weixin_42174815/article/month/2020/08 redis的前生
+- https://www.bilibili.com/video/av90121616 马士兵教育专属 周老师讲：炸天的分布式，redis、zk、kafka、hbase
 
