@@ -1,4 +1,4 @@
-![image-20210327090002896](C:/Users/Administrator/AppData/Roaming/Typora/typora-user-images/image-20210327090002896.png)
+![image-20210327090002896](https://i.loli.net/2021/03/29/ZX5Qy7GwbcRMihH.png)
 
 ## 缓存和数据库的不同
 
@@ -8,7 +8,7 @@
 
 ## pipeline
 
-![image-20210327090658920](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210327090658920.png)
+![image-20210327090658920](https://i.loli.net/2021/03/29/UgIiQNyxLJarz9X.png)
 
 ## 冷启动
 
@@ -16,7 +16,7 @@
 
 ## 发布订阅
 
-![image-20210327091320387](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210327091320387.png)
+![image-20210327091320387](https://i.loli.net/2021/03/29/GkOC4v3abrZP5Bc.png)
 
 微信群的历史数据
 
@@ -26,17 +26,17 @@
 
 redis的方案
 
-![image-20210327091846705](image-20210327091846705.png)
+![image-20210327091846705](https://i.loli.net/2021/03/29/SJFmbYL5VlWKR2u.png)
 
-![image-20210327092418104](image-20210327092418104.png)
+![image-20210327092418104](https://i.loli.net/2021/03/29/nlHJ4wbvZEr6dcM.png)
 
-![image-20210327092353274](image-20210327092353274.png)
+![image-20210327092353274](https://i.loli.net/2021/03/29/khnD1YbJy9IEVwR.png)
 
 ## redis 事务
 
 不能回滚，
 
-![image-20210327092547212](image-20210327092547212.png)
+![image-20210327092547212](https://i.loli.net/2021/03/29/VJYwLWiOfxMEm4D.png)
 
 
 
