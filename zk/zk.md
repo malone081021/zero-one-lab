@@ -204,8 +204,119 @@ rmr path
 
 ![image-20210330215222530](https://i.loli.net/2021/03/30/vpnEhMKo1cdGjib.png)
 
+两两链接，通信完成leader的选择
+
 # 参考
 
 - https://gitbook.cn/books/5ef47a1690c794640abd37d4/index.html gitchat
-- 
-- 
+
+
+
+**主要内容**
+
+- paxzo
+
+- zab
+
+- > 选主模型，数据同步
+
+- watch
+
+- API 开发 
+
+- callback reactive 更充分的压榨OS hw 资源 性能
+
+
+
+定位 分布式协调 扩展性 可靠性 时序性  快
+
+Observers
+
+架构  
+
+- 角色 
+
+  - leader 写
+
+  - flower 读  之后follower 才能参与选举 Observer 不能
+
+  - observer 扩展性 读写分离 发达查询能力
+
+    - zoo.cfg
+
+      ![image-20210331204918395](https://i.loli.net/2021/03/31/k1fj5eyWd3FiOZE.png)
+
+可靠性
+
+- 攘其外必先安其内 
+
+- 快速回复，有不可用，但是能快速选主
+
+- 快速选出leader
+
+- 数据的可靠性 可用 一致性 
+
+  - 攘其外 一致性 
+  - 最终一致性
+  - 过程中 节点是否对外提供服务 ？？
+
+  - 都是分布式相关的问题
+
+**paxos** https://www.douban.com/note/208430424/
+
+基于消息传递的一致性算法
+
+没有拜占庭将军问题，相信网络问题，在一个科信环境
+
+**过半通过；两阶段提交**
+
+**异常，同时提议，解决冲突**
+
+写都是需要leader，而且是两阶段提交
+
+![image-20210331211210579](https://i.loli.net/2021/03/31/xWYOy62ZrmeIVhS.png)
+
+zab协议，原子广播协议 有leade 时 paxos的精简版
+
+写操作转发到leader
+
+创建事务id Zxid 
+
+​	原子：成功或者失败，没有中间状态 （对列 +2PC）
+
+​	广播协议：分布式，不能保证所有都能收到
+
+​	队列：FIFO,顺序
+
+zk的数据是在内存的
+
+4.1 发起写日志的事，两阶段的第一阶段 ，在leader中维护发送队列
+
+4.1 - ok
+
+4.2  write，队列中保存动作，需要follower消费，恢复
+
+最终给客户端ok
+
+![image-20210331214236590](https://i.loli.net/2021/03/31/WkNi3GOCJaVLZgq.png)
+
+
+
+简化paxos，主挂，停止服务
+
+两阶段，**写日志，写内存**
+
+
+
+1:24
+
+
+
+
+
+
+
+
+
+
+
