@@ -204,8 +204,93 @@ rmr path
 
 ![image-20210330215222530](https://i.loli.net/2021/03/30/vpnEhMKo1cdGjib.png)
 
+zk的选举过程
+
+1. 3888 两两通信
+2. 只要任何人投投票，都会触发那个准leader发起自己的投票
+3. 推选制：先比较zxid，如果zxid相同，在提交myid
+
+> 不考虑网络演示，大部分是网络没有延迟，只选择myid最大的
+>
+> 如果因为技术而技术很难设计出来
+
+
+
+zk 2 node 不可以对外服务，leader 选不出，
+
+
+
+# watch
+
+统一视图，数据一致
+
+目录结构
+
+同步两个客户端，代替心跳
+
+通过session，消失，产生事件，create delete change children ，回到wathc的callback
+
+> 方向性和时效性 -> 比心跳及时
+
+**但是怎么实现的呢 ？**
+
+![image-20210402091111189](https://gitee.com/zilongcc/images/raw/master/image-20210402091111189.png)
+
+
+
+**线程池和连接池的关系**
+
+1. 验证，链接node，挂掉，session迁移，session id 不变，watch是session级别，所有事件都能监控到
+2. wath 一次性的，需要重复注册
+3. 回调方法，快速通过，再回调
+
+
+
+# 分布式协调
+
+> 分布式配置，分布式锁【热点】
+>
+> 通过分布式式锁，考察能力，很多的知识点，
+
+## 分布式配置
+
+> 配置变更
+>
+> 大量获取配置信息
+
+![image-20210402100409317](https://gitee.com/zilongcc/images/raw/master/image-20210402100409317.png)
+
+1. get
+2. watch，变化回调
+
+
+
+![image-20210402101459846](image-20210402101459846.png)
+
+回调嵌套
+
+![image-20210402103623308](https://gitee.com/zilongcc/images/raw/master/image-20210402103623308.png)
+
+
+
+回调
+
+删除node，回调，数据置空，cd初始化，客户端继续等待数据
+
+喷喷
+
+**分布式锁**
+
+>  两个节点，两个线程，同步执行
+
+分布式定时任务，redis 是有单点问题，持久化，导致慢等等
+
+争抢锁，一个能获得所
+
+> watch 
+
+
+
 # 参考
 
 - https://gitbook.cn/books/5ef47a1690c794640abd37d4/index.html gitchat
-- 
-- 
