@@ -48,3 +48,17 @@ offset存储的时机，节奏，导致不同的问题
 
 
 ![image.png](https://gitee.com/zilongcc/images/raw/master/40679634ba2c4e18aec639df694d8f7d~tplv-k3u1fbpfcp-watermark.image)
+
+# kafka 磁盘与网卡【先不讲】
+
+
+
+搭建
+
+演示
+
+面向kafka 的MQ，消息处理方式
+
+官网
+
+依赖zk,每个都要有自己的前缀
